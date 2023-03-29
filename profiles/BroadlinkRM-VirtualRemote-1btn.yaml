@@ -1,0 +1,19 @@
+name: BroadlinkRM-VirtualRemote-1btn.v1
+components:
+  - id: main
+    capabilities:
+      - id: momentary
+        version: 1
+    categories:
+      - name: IrRemote
+preferences:
+  - title: "Remote code 1"
+    name: remoteCode1
+    description: "hex or base64 code of the command to send"
+    required: true
+    preferenceType: string
+    definition:
+      minLength: 0
+      maxLength: 255
+      stringType: text
+      default: ""

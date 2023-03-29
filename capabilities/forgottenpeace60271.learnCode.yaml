@@ -1,0 +1,25 @@
+#
+# Custom capability definition
+# Must be created before use by a device definition:
+#    smartthings capabilities:create -i ./capabilities/forgottenpeace60271.learnCode.yaml
+#
+
+id: forgottenpeace60271.learnCode
+version: 1
+status: proposed
+name: learn code
+attributes:
+  code:
+    schema:
+      type: object
+      properties:
+        value:
+          type: string
+      additionalProperties: false
+      required:
+        - value
+    enumCommands: []
+commands:
+  doLearn:
+    name: doLearn
+    arguments: []

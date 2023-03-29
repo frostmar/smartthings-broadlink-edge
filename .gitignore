@@ -1,0 +1,4 @@
+.vscode/
+docs/
+lua_libs-api_v2/
+*_private.md

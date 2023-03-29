@@ -1,0 +1,27 @@
+name: BroadlinkRM.v1
+components:
+  - id: main
+    capabilities:
+      - id: momentary
+        version: 1
+    categories:
+      - name: IrRemote
+  - id: learn
+    capabilities:
+      - id: forgottenpeace60271.learnCode
+        version: 1
+  - id: newVirtualRemoteDevice
+    capabilities:
+      - id: momentary
+        version: 1
+preferences:
+  - title: "Remote code"
+    name: remoteCode
+    description: "hex code of the command to send"
+    required: true
+    preferenceType: string
+    definition:
+      minLength: 0
+      maxLength: 255
+      stringType: text
+      default: ""

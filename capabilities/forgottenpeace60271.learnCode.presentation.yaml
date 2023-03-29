@@ -1,0 +1,27 @@
+#
+# Custom capability presentation
+# Must be created before a device can display the capability:
+#    smartthings capabilities:presentation:create forgottenpeace60271.learnCode 1 -i ./capabilities/forgottenpeace60271.learnCode.presentation.yaml 
+#
+
+dashboard:
+  states: []
+  actions:
+    - displayType: pushButton
+      pushButton:
+        command: doLearn
+  basicPlus: []
+detailView:
+  - label: Remote code
+    displayType: state
+    state:
+      label: '{{code.value}}'
+  - label: Learn code
+    displayType: pushButton
+    pushButton:
+      command: doLearn
+automation:
+  conditions: []
+  actions: []
+id: forgottenpeace60271.learnCode
+version: 1

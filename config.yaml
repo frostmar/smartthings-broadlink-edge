@@ -1,0 +1,5 @@
+name: "Broadlink Remote"
+packageKey: "LAN-Broadlink-RM"
+permissions:
+  lan: {}
+  discovery: {}
