@@ -9,6 +9,8 @@ This is a driver for Samsung SmartThings home automation hubs, allowing a hub to
 - Only supports the Broadlink "RM mini 3" device  
   Specifically, devices that report a deviceId listed in [src/devicetypes.lua](./src/devicetypes.lua)). Small protocol differences mean even similar-ish products such as the "RM4 mini" are unlikely to work without changes.
 - Only supports discovery of a single Broadlink device on the network
+- Remote codes must be entered in Broadlink's RawData format (which can be learned from a physical remote)  
+  Other formats you may find on the web (eg 'Pronto hex') are not accepted, and must be converted somehow if you don't learn from a real remote.
 - Probably riddled with bugs
 - Unlikely to be maintained or extended  
   I don't have the time or enthusiasm to add support for other devices, or get involved with fixing bugs you may find. If this works for you as you find it, or if you'd like to change and extend it, that's great.
@@ -17,7 +19,8 @@ This is a driver for Samsung SmartThings home automation hubs, allowing a hub to
 ## Use
 1. Install the driver to your SmartThings account. Either:
    1. Use the source here to compile your own driver
-   1. Use invite url https://bestow-regional.api.smartthings.com/invite/Pw2D66Qadbj3 to add `frostmar Shared Drivers` channel to your hub; from the list of available drivers install driver `Broadlink Remote`
+   1. Use invite url https://bestow-regional.api.smartthings.com/invite/Pw2D66Qadbj3 to add `frostmar Shared Drivers` channel to your hub; from the list of available drivers install driver `Broadlink Remote`  
+      ⚠️ Be aware there's no guarantee the driver from this channel will remain working for you!
 2. In your SmartThings mobile app, `Add a device` → `Scan`
    A `Broadlink Remote` device will immediately be created (if a supported Broadlink IR remote is found on the local network)
    This is a parent device, use it's options to learn and display a remote code, and to create one or more "Virtual remote" devices to send remote codes.
@@ -37,3 +40,5 @@ See [README_development](./README_development.md) for some notes.
 ## Dependencies
 Embeds encryption from the `smartthings_edge` branch of `lua-lockbox` - https://github.com/rtyle/lua-lockbox/blob/smartthings-edge/  
 Many thanks to Ross Tyler for the SmartThings-compatible fork of this useful libray.
+
+Thanks also to Mathew Garett for the excellent [python-broadlink](https://github.com/mjg59/python-broadlink/) library and Broadlink protocol information, much of the code here is shamelessly based on it.
