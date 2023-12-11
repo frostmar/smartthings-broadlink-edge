@@ -38,7 +38,7 @@ See [README_development](./README_development.md) for some notes.
 
 
 ## Dependencies
-Embeds encryption from the `smartthings_edge` branch of `lua-lockbox` - https://github.com/rtyle/lua-lockbox/blob/smartthings-edge/  
+Embeds encryption from the `smartthings-edge` branch of `lua-lockbox` - https://github.com/rtyle/lua-lockbox/blob/smartthings-edge/  
 Many thanks to Ross Tyler for the SmartThings-compatible fork of this useful libray.
 
 Thanks also to Mathew Garett for the excellent [python-broadlink](https://github.com/mjg59/python-broadlink/) library and Broadlink protocol information, much of the code here is shamelessly based on it.
