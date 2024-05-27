@@ -1,6 +1,6 @@
 name: BroadlinkRM-VirtualRemote-1btn.v1
 components:
-  - id: main
+  - id: button1
     capabilities:
       - id: momentary
         version: 1

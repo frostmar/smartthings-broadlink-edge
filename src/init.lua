@@ -27,7 +27,7 @@ local virtual_remote_device_counter = 0
 -- handlers ---------------------------------------------------------------
 
 -- create a new "Virtual IR Remote control"
-local function create_new_device(driver, counter)
+local function create_new_device(driver, parent_device_id, counter)
 
   local MFG_NAME = 'SmartThings Community'
   local VEND_LABEL = string.format('Broadlink Virtual Remote Control #%d', counter)
@@ -39,6 +39,7 @@ local function create_new_device(driver, counter)
 
   local create_device_msg = {
                               type = "LAN",
+                              parent_device_id = parent_device_id,
                               device_network_id = ID,
                               label = VEND_LABEL,
                               profile = PROFILE,
@@ -60,7 +61,13 @@ local function handle_momentary_button(driver, st_device, command)
 
     if command.component == 'newVirtualRemoteDevice' then
       virtual_remote_device_counter = virtual_remote_device_counter + 1
-      create_new_device(driver, virtual_remote_device_counter)
+      create_new_device(driver, st_device.id , virtual_remote_device_counter)
+    end
+
+    if command.component == 'button1' then
+      local parent_device = st_device:get_parent_device()
+      log.debug ('component button1 got parent OK')
+      broadlink.send_data(st_device.preferences.remoteCode1, parent_device)
     end
 
 end

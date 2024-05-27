@@ -177,16 +177,16 @@ end
 -- @param encryption_key lockbox.util.Array - optional AES encryption key. If nil, st_device's property 'broadlink_encryption_key' is used
 -- @returns string - response bytes
 local function send_packet(packet_type, payload, st_device, encryption_key)
-    log.info('entered send_packet() packet_type='..string.format('0x%02x',packet_type)..' payload len='..#payload..'bytes encryption_key=')
+    log.info('entered send_packet() packet_type='..string.format('0x%02x',packet_type)..' payload len='..#payload..'bytes encryption_key='..tostring(encryption_key))
     packet_counter = ((packet_counter + 1) | 0x8000) & 0xFFFF
 
+    log.info('send_packet() device_network_id='..st_device.device_network_id)
     -- translate macaddr from colon-separated hex string to 6 bytes of binary
     local device_macaddr = ''
     for mac_field in string.gmatch(st_device.device_network_id, "([^:]+)") do
         device_macaddr = string.pack('B', tonumber(mac_field, 16)) .. device_macaddr
     end
 
-    log.info('send_packet() device_network_id='..st_device.device_network_id)
     log.info('send_packet() device_macaddr='..printhex(device_macaddr))
 
     local broadlink_device_id = st_device:get_field('broadlink_device_id') or 0 -- zero before auth
