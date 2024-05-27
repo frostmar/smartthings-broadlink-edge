@@ -11,6 +11,7 @@ This is a driver for Samsung SmartThings home automation hubs, allowing a hub to
 - Only supports discovery of a single Broadlink device on the network
 - Remote codes must be entered in Broadlink's RawData format (which can be learned from a physical remote)  
   Other formats you may find on the web (eg 'Pronto hex') are not accepted, and must be converted somehow if you don't learn from a real remote.
+  The `pronto2broadlink.py` script can convert Pronto Hex to the Broadlink hex format.
 - Probably riddled with bugs
 - Unlikely to be maintained or extended  
   I don't have the time or enthusiasm to add support for other devices, or get involved with fixing bugs you may find. If this works for you as you find it, or if you'd like to change and extend it, that's great.
@@ -41,4 +42,6 @@ See [README_development](./README_development.md) for some notes.
 Embeds encryption from the `smartthings-edge` branch of `lua-lockbox` - https://github.com/rtyle/lua-lockbox/blob/smartthings-edge/  
 Many thanks to Ross Tyler for the SmartThings-compatible fork of this useful libray.
 
-Thanks also to Mathew Garett for the excellent [python-broadlink](https://github.com/mjg59/python-broadlink/) library and Broadlink protocol information, much of the code here is shamelessly based on it.
+Thanks to Mathew Garett for the excellent [python-broadlink](https://github.com/mjg59/python-broadlink/) library and Broadlink protocol information, much of the code here is shamelessly based on it.
+
+Thanks to Scott Kyle for the pronto2broadlink.py script to convert Pronto Hex remote codes into the Broadlink hex format.
