@@ -1,11 +1,13 @@
 name: BroadlinkRM-VirtualRemote-1btn.v1
 components:
-  - id: button1
+  - id: main
     capabilities:
+      - id: switch
+        version: 1
       - id: momentary
         version: 1
     categories:
-      - name: IrRemote
+      - name: Switch
 preferences:
   - title: "Remote code 1"
     name: remoteCode1

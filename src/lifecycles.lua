@@ -1,5 +1,6 @@
 -- libraries
 local log = require('log')
+local capabilities = require('st.capabilities')
 
 -- files
 local config = require('config')
@@ -64,14 +65,7 @@ end
 
 function lifecycle_handler.added(driver, device)
   log.info('lifecycle_handler.added() entered')
-  -- Once device has been created
-  -- at API level, poll its state
-  -- via refresh command and send
-  -- request to share server's ip
-  -- and port to the device os it
-  -- can communicate back.
---   commands.refresh(nil, device)
---   commands.ping(driver.server.ip, driver.server.port, device)
+  device:emit_event(capabilities.switch.switch('off'))
   log.info('lifecycle_handler.added() exiting')
 end
 

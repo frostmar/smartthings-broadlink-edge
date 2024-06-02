@@ -51,12 +51,22 @@ local function create_new_device(driver, parent_device_id, counter)
   assert (driver:try_create_device(create_device_msg), "failed to create virtual remote control device")
 end
 
--- handler for all 'momentary' button capabilities
+-- handler for all 'momentary' (button) capabilities
 local function handle_momentary_button(driver, st_device, command)
     log.info ('Entered handle_momentary_button() command='..st_utils.stringify_table(command, nil, nil))
+    log.info ('vendor_provided_label>'..st_device.vendor_provided_label:sub(20)..'<')
 
     if command.component == 'main' then
-      broadlink.send_data(st_device.preferences.remoteCode, st_device)
+      if st_device.vendor_provided_label:sub(1, 20) == 'Broadlink IR Remote ' then
+        -- this is a parent 'BroadlinkRM'
+        broadlink.send_data(st_device.preferences.remoteCode, st_device)
+      else
+        -- this is a child 'virtual remote' button
+        local parent_device = st_device:get_parent_device()
+        log.debug ('got parent device OK')
+        broadlink.send_data(st_device.preferences.remoteCode1, parent_device)
+      end
+
     end
 
     if command.component == 'newVirtualRemoteDevice' then
@@ -64,12 +74,16 @@ local function handle_momentary_button(driver, st_device, command)
       create_new_device(driver, st_device.id , virtual_remote_device_counter)
     end
 
-    if command.component == 'button1' then
-      local parent_device = st_device:get_parent_device()
-      log.debug ('component button1 got parent OK')
-      broadlink.send_data(st_device.preferences.remoteCode1, parent_device)
-    end
+end
 
+-- handler for all 'switch' capabilities
+local function handle_switch(driver, st_device, command)
+  log.info ('Entered handle_switch() command='..st_utils.stringify_table(command, nil, nil))
+  if command.command == 'on' then
+    st_device:emit_event(capabilities.switch.switch('on'))
+    handle_momentary_button(driver, st_device, command)
+  end
+  st_device:emit_event(capabilities.switch.switch('off'))
 end
 
 -- handler for custom 'learnCode' capability
@@ -94,12 +108,14 @@ local driver =
       discovery = disco.handle_discovery,
       lifecycle_handlers = lifecycles,
       supported_capabilities = {
-        -- caps.switch,
-        -- caps.switchLevel,
-        -- caps.colorControl,
-        -- caps.refresh
+        capabilities.switch,
+        -- capabilities.refresh
       },
       capability_handlers = {
+        [capabilities.switch.ID] = {
+          [capabilities.switch.commands.on.NAME] = handle_switch,
+          [capabilities.switch.commands.off.NAME] = handle_switch,
+        },
         [capabilities.momentary.ID] = {
           [capabilities.momentary.commands.push.NAME] = handle_momentary_button,
         },
