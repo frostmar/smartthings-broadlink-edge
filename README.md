@@ -22,8 +22,8 @@ This is a driver for Samsung SmartThings home automation hubs, allowing a hub to
    1. Use the source here to compile your own driver
    1. Use invite url https://bestow-regional.api.smartthings.com/invite/Pw2D66Qadbj3 to add `frostmar Shared Drivers` channel to your hub; from the list of available drivers install driver `Broadlink Remote`  
       ⚠️ Be aware there's no guarantee the driver from this channel will remain working for you!
-2. In your SmartThings mobile app, `Add a device` → `Scan`
-   A `Broadlink Remote` device will immediately be created (if a supported Broadlink IR remote is found on the local network)
+2. In your SmartThings mobile app, `Add a device` → `Scan`  
+   A `Broadlink Remote` device will immediately be created (if a supported Broadlink IR remote is found on the local network)  
    This is a parent device, use it's options to learn and display a remote code, and to create one or more "Virtual remote" devices to send remote codes.
 4. In the app, select the new `Broadlink Remote` device to: 
    - Use it's `learn code` button to put the Broadlink into learning mode, the next IR code received will be displayed
