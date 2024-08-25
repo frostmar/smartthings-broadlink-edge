@@ -54,7 +54,7 @@ end
 -- handler for all 'momentary' (button) capabilities
 local function handle_momentary_button(driver, st_device, command)
     log.info ('Entered handle_momentary_button() command='..st_utils.stringify_table(command, nil, nil))
-    log.info ('vendor_provided_label>'..st_device.vendor_provided_label:sub(20)..'<')
+    log.debug ('vendor_provided_label>'..st_device.vendor_provided_label:sub(1, 20)..'<')
 
     if command.component == 'main' then
       if st_device.vendor_provided_label:sub(1, 20) == 'Broadlink IR Remote ' then
@@ -83,7 +83,12 @@ local function handle_switch(driver, st_device, command)
     st_device:emit_event(capabilities.switch.switch('on'))
     handle_momentary_button(driver, st_device, command)
   end
-  st_device:emit_event(capabilities.switch.switch('off'))
+  st_device.thread:call_with_delay(
+    1,
+    function()
+      st_device:emit_event(capabilities.switch.switch('off'))
+    end
+  )
 end
 
 -- handler for custom 'learnCode' capability
