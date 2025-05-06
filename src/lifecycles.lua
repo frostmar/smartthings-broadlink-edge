@@ -23,7 +23,7 @@ function lifecycle_handler.init(driver, device)
 
   -- find the device's current IP
 
-  if not driver._macaddr_to_ip[device.device_network_id] or not driver._macaddr_to_ip[device.device_network_id] then
+  if not driver._macaddr_to_ip[device.device_network_id] or not driver._macaddr_to_device_type[device.device_network_id] then
     -- no cached info, broadcast to discover
     disco.do_discover(driver, nil)
   end
